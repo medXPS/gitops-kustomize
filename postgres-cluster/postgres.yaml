@@ -7,7 +7,7 @@ spec:
   postgresVersion: 16
   instances:
     - name: adria-postgres-db
-      replicas: 2
+      replicas: 3
       resources:
         requests:
           memory: "2Gi"
@@ -20,7 +20,7 @@ spec:
         - "ReadWriteOnce"
         resources:
           requests:
-            storage: 1Gi
+            storage: 4Gi
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -61,7 +61,7 @@ spec:
         parameters:
           synchronous_commit: "on"
           archive_timeout: 60  
-          max_connections: 10000
+          max_connections: 20000
   #pgbouncer proxy
   proxy:
     pgBouncer:
