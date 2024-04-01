@@ -52,7 +52,11 @@ spec:
     - name: mohamed
       databases:
         - adriadb
-      options: 'SUPERUSER' 
+      options: 'SUPERUSER'
+    - name: oussama
+      databases:
+        - adriadb
+      options: 'SUPERUSER'  
   #enabling synchronous communication between replicas 
   patroni:
     dynamicConfiguration:
