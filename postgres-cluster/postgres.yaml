@@ -52,7 +52,7 @@ spec:
     - name: mohamed
       databases:
         - adriadb
-      options: 'NOSUPERUSER'
+      options: 'NOSUPERUSER CREATEDB CREATEROLE CREATE TEMP'
      
       
   #enabling synchronous communication between replicas 
