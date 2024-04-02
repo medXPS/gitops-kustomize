@@ -83,7 +83,7 @@ spec:
       config:
         global:
           pool_mode: transaction
-          max_client_conn: 10000
+          max_client_conn: "10000"
       # env:
       #   - name: MAX_CLIENT_CONN
       #     value: "10000"
