@@ -68,18 +68,18 @@ spec:
           archive_timeout: 60  
           max_connections: 20000
   #pgbouncer proxy
-  # proxy:
-  #   pgBouncer:
-  #     image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.21-3
-  #     replicas: 1
-  #     affinity:
-  #       podAntiAffinity:
-  #         preferredDuringSchedulingIgnoredDuringExecution:
-  #         - weight: 1
-  #           podAffinityTerm:
-  #             topologyKey: kubernetes.io/hostname
-  #             labelSelector:
-  #               matchLabels:
-  #                 postgres-operator.crunchydata.com/cluster: adria-pg-db
-  #                 postgres-operator.crunchydata.com/role: pgbouncer
+  proxy:
+    pgBouncer:
+      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.21-3
+      replicas: 1
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  postgres-operator.crunchydata.com/cluster: adria-pg-db
+                  postgres-operator.crunchydata.com/role: pgbouncer
   
