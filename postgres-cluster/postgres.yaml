@@ -52,11 +52,7 @@ spec:
     - name: mohamed
       databases:
         - adriadb
-      options: 'SUPERUSER'
-    - name: oussama
-      databases:
-        - adriadb
-      options: 'CREATEDB CREATEROLE CREATE TEMP TABLES'
+     
       
   #enabling synchronous communication between replicas 
   patroni:
