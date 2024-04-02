@@ -53,10 +53,7 @@ spec:
       databases:
         - adriadb
       options: 'SUPERUSER'
-    - name: oussama
-      databases:
-        - adriadb
-      options: 'SUPERUSER'  
+  
   #enabling synchronous communication between replicas 
   patroni:
     dynamicConfiguration:
