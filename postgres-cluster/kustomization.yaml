@@ -5,3 +5,4 @@ namespace: pgo-ha
 
 resources:
 - postgres.yaml
+- adria-pg-db-pgbouncer-loadbalancer.yml
