@@ -52,7 +52,7 @@ spec:
     - name: mohamed
       databases:
         - adriadb
-      options: 'CREATEDB CREATEROLE'
+      options: 'SUPERUSER'
      
       
   #enabling synchronous communication between replicas 
