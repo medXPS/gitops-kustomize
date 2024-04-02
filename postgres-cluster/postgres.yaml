@@ -53,6 +53,10 @@ spec:
       databases:
         - adriadb
       options: 'SUPERUSER'
+    - name: oussama
+      databases:
+        - adriadb
+      options: 'NOSUPERUSER'
      
       
   #enabling synchronous communication between replicas 
