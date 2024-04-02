@@ -61,9 +61,7 @@ spec:
       databases:
         - adriadb
       options: 'NOSUPERUSER'
-  databaseInitSQL:
-    key: init.sql
-    name: adria-init-sql
+  
       
   #enabling synchronous communication between replicas 
   patroni:
@@ -74,11 +72,17 @@ spec:
           synchronous_commit: "on"
           archive_timeout: 60  
           max_connections: 20000
+  databaseInitSQL:
+    key: init.sql
+    name: adria-init-sql
   #pgbouncer proxy
   proxy:
     pgBouncer:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.21-3
       replicas: 3
+      env:
+        - name: MAX_CLIENT_CONN
+          value: "10000"
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
