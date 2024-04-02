@@ -57,7 +57,13 @@ spec:
       databases:
         - adriadb
       options: 'NOSUPERUSER'
-     
+    - name: adria
+      databases:
+        - adriadb
+      options: 'NOSUPERUSER'
+  databaseInitSQL:
+    key: init.sql
+    name: adria-init-sql
       
   #enabling synchronous communication between replicas 
   patroni:
