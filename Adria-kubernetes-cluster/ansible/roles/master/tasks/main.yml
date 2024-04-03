@@ -61,13 +61,12 @@
 
 - name: Install Kubernetes binaries
   apt:
-    name: "{{ item }}"
+    name: 
+      - kubelet=1.29.3-1
+      - kubeadm=1.29.3-1
+      - kubectl=1.29.3-1
     state: present
     update_cache: yes
-  with_items:
-    - kubelet=1.29.3-1
-    - kubeadm=1.29.3-1
-    - kubectl=1.29.3-1
 
 
 - name: Configure containerd
