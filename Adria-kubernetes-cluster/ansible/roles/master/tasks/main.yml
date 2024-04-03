@@ -98,6 +98,10 @@
   file:
     path: /etc/systemd/system/kubelet.service.d
     state: directory
+- name: Get the IP address of the current machine
+  set_fact:
+    output: "{{ ansible_default_ipv4.address }}"
+  when: ansible_default_ipv4.address is defined
 
 - name: Configure kubelet
   lineinfile:
