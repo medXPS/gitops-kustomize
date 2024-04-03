@@ -65,11 +65,11 @@
     state: present
     update_cache: yes
   with_items:
-    - kubelet=1.29.0-00
-    - kubeadm=1.29.0-00
-    - kubectl=1.29.0-00
+    - kubelet=1.29.3-1
+    - kubeadm=1.29.3-1
+    - kubectl=1.29.3-1
 
-    
+
 - name: Configure containerd
   blockinfile:
     create: true
