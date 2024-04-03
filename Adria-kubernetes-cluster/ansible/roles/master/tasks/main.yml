@@ -102,7 +102,15 @@
   set_fact:
     output: "{{ ansible_default_ipv4.address }}"
   when: ansible_default_ipv4.address is defined
+- name: Ensure kubelet systemd directory exists
+  file:
+    path: /etc/systemd/system/kubelet.service.d
+    state: directory
 
+- name: Configure kubelet
+  lineinfile:
+    path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    line: "Environment=\"KUBELET_EXTRA_ARGS=--node-ip={{ output }}\""
 - name: Configure kubelet
   lineinfile:
     path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
