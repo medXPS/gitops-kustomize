@@ -52,9 +52,9 @@
     update_cache: yes
   vars:
     packages:
-      - kubelet=1.29.0-00
-      - kubeadm=1.29.0-00
-      - kubectl=1.29.0-00
+      - kubelet=1.29.*
+      - kubeadm=1.29.*
+      - kubectl=1.29.*
 
 - name: Configure containerd
   blockinfile:
