@@ -5,7 +5,7 @@ CONTROLLER_IP_START = 2
 NODE_IP_START = CONTROLLER_IP_START + NUM_CONTROLLER_NODE
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/focal64"
+  config.vm.box = "bento/ubuntu-20.04"
 
   # Controller Nodes
   (1..NUM_CONTROLLER_NODE).each do |i|
