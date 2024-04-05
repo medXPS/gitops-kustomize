@@ -36,16 +36,19 @@ Vagrant.configure("2") do |config|
         cat /home/vagrant/.ssh/id_rsa.pub > /vagrant/controller#{i}_pubkey
         systemctl restart sshd
 
+        # Create inventory directory if it doesn't exist
+        mkdir -p /home/vagrant/inventory
+        
         # Generate inventory file
-        echo "[kubemasters]" > /home/ansible/inventory/inventory.ini
+        echo "[kubemasters]" > /home/vagrant/inventory/inventory.ini
         for i in {1..1}
         do
-            echo "kubemaster$i ansible_host=192.168.56.$(( 3 + $i ))" >>  /home/ansible/inventory/inventory.ini
+            echo "kubemaster$i ansible_host=192.168.56.$(( 3 + $i ))" >> /home/vagrant/inventory/inventory.ini
         done
-        echo "[kubeworkers]" >> /home/ansible/inventory/inventory.ini
+        echo "[kubeworkers]" >> /home/vagrant/inventory/inventory.ini
         for i in {2..#{NUM_NODES}}
         do
-            echo "kubeworker$(( $i - 1)) ansible_host=192.168.56.$(( 3 + $i ))" >>  /home/ansible/inventory/inventory.ini
+            echo "kubeworker$(( $i - 1)) ansible_host=192.168.56.$(( 3 + $i ))" >>  /home/vagrant/inventory/inventory.ini
             done
       SHELL
 
