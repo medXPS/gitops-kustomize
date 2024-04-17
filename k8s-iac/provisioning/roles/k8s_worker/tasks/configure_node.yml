@@ -1,4 +1,12 @@
 ---
+- name: configure_node | Ensure kubelet service directory exists
+  ansible.builtin.file:
+    path: /etc/systemd/system/kubelet.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '755'
+
 - name: configure_node | Configure node ip
   ansible.builtin.lineinfile:
     path: /usr/bin/kubelet
@@ -18,4 +26,3 @@
     daemon_reload: true
     state: restarted
     enabled: true
-

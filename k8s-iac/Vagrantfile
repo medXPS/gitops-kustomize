@@ -1,23 +1,22 @@
-NUM_NODES = 2
+NUM_NODES = 1
 NUM_CONTROLLER_NODE = 1
 IP_NTW = "192.168.56."
-CONTROLLER_IP_START = 2
-NODE_IP_START = CONTROLLER_IP_START + NUM_CONTROLLER_NODE
+NODE_IP_START = NUM_NODES + NUM_CONTROLLER_NODE
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box = "ubuntu/focal64"
 
   # Controller Nodes
   (1..NUM_CONTROLLER_NODE).each do |i|
     config.vm.define "controller#{i}" do |node|
       node.vm.provider "virtualbox" do |vb|
         vb.name = "controller#{i}"
-        vb.memory = 2048
+        vb.memory = 4096
         vb.cpus = 2
       end
 
       node.vm.hostname = "controller#{i}"
-      node.vm.network "private_network", ip: "#{IP_NTW}#{CONTROLLER_IP_START + i}"
+      node.vm.network "private_network", ip: "#{IP_NTW}#{NODE_IP_START + i}"
       node.vm.network "forwarded_port", guest: 22, host: "#{2710 + i}"
       node.vm.provision "shell", inline: <<-SHELL
 
@@ -33,27 +32,24 @@ Vagrant.configure("2") do |config|
         chown -R vagrant:vagrant /home/vagrant/.ssh
         chmod 700 /home/vagrant/.ssh
         chmod 600 /home/vagrant/.ssh/authorized_keys
-        cat /home/vagrant/.ssh/id_rsa.pub > /vagrant/controller#{i}_pubkey
+        cat /home/vagrant/.ssh/id_rsa.pub > /vagrant/controller1_pubkey
         systemctl restart sshd
 
-        # Create inventory directory if it doesn't exist
-        mkdir -p /home/vagrant/inventory
-        
         # Generate inventory file
-        echo "[kubemasters]" > /home/vagrant/inventory/inventory.ini
-        for i in {1..1}
+        echo "[kubemasters]" > /home/vagrant/workstation/inventory.ini
+        for i in {1..#{NUM_CONTROLLER_NODE}}
         do
-            echo "kubemaster$i ansible_host=192.168.56.$(( 3 + $i ))" >> /home/vagrant/inventory/inventory.ini
+            echo "kubemaster$i ansible_host=192.168.56.$(( #{NODE_IP_START} + $i ))" >> /home/vagrant/workstation/inventory.ini
         done
-        echo "[kubeworkers]" >> /home/vagrant/inventory/inventory.ini
-        for i in {2..#{NUM_NODES}}
+        echo "[kubeworkers]" >> /home/vagrant/workstation/inventory.ini
+        for i in {1..#{NUM_NODES}}
         do
-            echo "kubeworker$(( $i - 1)) ansible_host=192.168.56.$(( 3 + $i ))" >>  /home/vagrant/inventory/inventory.ini
+            echo "kubeworker$(($i)) ansible_host=192.168.56.$(( #{NODE_IP_START}  + $i +1))" >> /home/vagrant/workstation/inventory.ini
             done
       SHELL
 
        # Synchronize inventory.ini file
-      node.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".vagrant/", "node_modules/"]
+      node.vm.synced_folder "./provisioning", "/home/vagrant/workstation"
     end
   end
 
@@ -62,14 +58,14 @@ Vagrant.configure("2") do |config|
     config.vm.define "worker#{i}" do |node|
       node.vm.provider "virtualbox" do |vb|
         vb.name = "worker#{i}"
-        vb.memory = 4096
+        vb.memory = 6144
         vb.cpus = 2
       end
 
       node.vm.hostname = "worker#{i}"
-      node.vm.network "private_network", ip: "#{IP_NTW}#{NODE_IP_START + i}"
-      node.vm.network "forwarded_port", guest: 22, host: "#{2720 + i}"
-      node.vm.network "forwarded_port", guest: 80, host: "#{8080 + i}"
+      node.vm.network "private_network", ip: "#{IP_NTW}#{NODE_IP_START + i+1}"
+      node.vm.network "forwarded_port", guest: 22, host: "#{2720 + i+1}"
+      node.vm.network "forwarded_port", guest: 80, host: "#{8080 + i+1}"
       node.vm.provision "shell", inline: <<-SHELL
         apt-get update
 

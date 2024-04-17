@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adria-init-sql
+  namespace: pgo-ha
+data:
+  init.sql: |
+    GRANT CONNECT ON DATABASE adriadb TO adria;
+    GRANT USAGE ON SCHEMA public TO adria;
+    GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO adria;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO adria;
+    GRANT USAGE, SELECT ON SEQUENCE item_seq TO adria
