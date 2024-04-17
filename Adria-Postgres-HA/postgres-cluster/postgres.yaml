@@ -5,6 +5,9 @@ metadata:
 spec:
   image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-16.2-0
   postgresVersion: 16
+  databaseInitSQL:
+    key: init.sql
+    name: adria-init-sql
   instances:
     - name: adria-postgres-db
       replicas: 3
@@ -69,6 +72,9 @@ spec:
       
   #enabling synchronous communication between replicas 
   patroni:
+  #It allows you to enable switchovers in your PostgresClusters, target a specific instance as the new primary, and run a failover if your PostgresCluster has entered a bad state.
+    switchover:
+      enabled: true
     dynamicConfiguration:
       synchronous_mode: true
       postgresql:
@@ -76,9 +82,7 @@ spec:
           synchronous_commit: "on"
           archive_timeout: 60  
           max_connections: 20000
-  databaseInitSQL:
-    key: init.sql
-    name: adria-init-sql
+  
   #pgbouncer proxy
   proxy:
     pgBouncer:
