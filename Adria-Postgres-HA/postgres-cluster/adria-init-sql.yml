@@ -5,9 +5,12 @@ metadata:
   namespace: pgo-ha
 data:
   init.sql: |
-    GRANT CONNECT ON DATABASE adriadb TO test;
-    GRANT USAGE ON SCHEMA public TO test;
-    GRANT CREATE ON SCHEMA public TO test;
-    GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO test;
-    ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO test;
-    GRANT USAGE, SELECT ON SEQUENCE item_seq TO test;
+    -- Create a group 'dev' and grant privileges
+    CREATE GROUP dev;
+    GRANT CONNECT ON DATABASE adriadb TO dev;
+    GRANT USAGE ON SCHEMA public TO dev;
+    GRANT CREATE ON SCHEMA public TO dev;
+    GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO dev;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO dev;
+
+    

@@ -55,6 +55,7 @@ spec:
     - name: mohamed
       databases:
         - adriadb
+        - alphadb
       options: 'SUPERUSER'
     - name: oussama
       databases:
@@ -71,6 +72,7 @@ spec:
     - name: soulaimane
       databases:
         - adriadb
+        - alphadb
       options: 'NOSUPERUSER'
   
       
