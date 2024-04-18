@@ -68,6 +68,10 @@ spec:
       databases:
         - adriadb
       options: 'NOSUPERUSER'
+    - name: soulaimane
+      databases:
+        - adriadb
+      options: 'NOSUPERUSER'
   
       
   #enabling synchronous communication between replicas 
