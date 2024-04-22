@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pgo-ingress
+  name: pgo-ingress-v1
   namespace: pgo-ha
   annotations:
     kubernetes.io/ingress.class: haproxy
