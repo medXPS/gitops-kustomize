@@ -24,6 +24,14 @@ spec:
         resources:
           requests:
             storage: 4Gi
+      #Write Ahead Log config 
+      walVolumeClaimSpec:
+        accessModes:
+        - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: 1Gi
+
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -87,7 +95,11 @@ spec:
         parameters:
           synchronous_commit: "on"
           archive_timeout: 60  
-          max_connections: 20000
+          max_connections: 10000
+          max_parallel_workers: 2
+          max_worker_processes: 2
+          shared_buffers: 1GB
+          work_mem: 2MB
   
   #pgbouncer proxy
   proxy:
