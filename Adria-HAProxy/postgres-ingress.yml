@@ -23,6 +23,22 @@ spec:
             name: nginx-service
             port:
               number: 80
+      - path : /grafana 
+        pathType: Prefix 
+        backend: 
+          service: 
+            name: crunchy-grafana
+            port: 
+              number: 3000
+      - path : /prom 
+        pathType: Prefix 
+        backend: 
+          service: 
+            name: crunchy-prometheus 
+            port: 
+              number: 9090
+
+
 
   tls: 
-    - secretName: adria-pg-db-pgbouncer  #  secret name
+    - secretName: adria-pg-db-cluster-cert  #  secret name
