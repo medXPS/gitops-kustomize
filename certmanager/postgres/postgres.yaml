@@ -11,3 +11,6 @@ spec:
   # to handle secure communication 
   customTLSSecret:
     name: adria-pg-db-tls
+
+
+# TODO --- add resources 

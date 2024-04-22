@@ -4,6 +4,8 @@ metadata:
   name: pgo-ingress-v1
   namespace: pgo-ha
   annotations:
+    # # add an annotation indicating the issuer to use
+    # cert-manager.io/cluster-issuer: letsencrypt-issuer
     kubernetes.io/ingress.class: haproxy
 spec:
   rules:
