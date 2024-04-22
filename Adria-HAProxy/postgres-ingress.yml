@@ -6,9 +6,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: haproxy
 spec:
-  tls:
+  # tls:
   
-    secretName: adria-pg-db-pgbouncer
+  #   secretName: adria-pg-db-pgbouncer
   rules:
   - http:
       paths:
