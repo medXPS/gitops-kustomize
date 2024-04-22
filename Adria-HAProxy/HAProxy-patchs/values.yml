@@ -1,0 +1,3 @@
+ssl:
+  enabled: true
+  secretName: adria-pg-db-pgbouncer

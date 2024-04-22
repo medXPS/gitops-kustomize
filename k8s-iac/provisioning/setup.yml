@@ -10,5 +10,8 @@
   become: yes
   roles:
   - role: 'k8s_worker'
-
-
+- name: Adding Kubernetes utilites 
+  hosts: [kubemasters]
+  become: yes
+  roles:
+    -role: 'k8s-addons'
