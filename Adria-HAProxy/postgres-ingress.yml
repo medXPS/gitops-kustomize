@@ -16,7 +16,7 @@ spec:
             name: adria-pg-db-pgbouncer  #  service name
             port:
               number: 5432
-      - path: /
+      - path: /nginx
         pathType: Prefix
         backend:
           service:
