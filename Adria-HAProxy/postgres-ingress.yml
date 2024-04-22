@@ -2,13 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: pgo-ingress
-  namespace: ha-proxy
+  namespace: pgo-ha
   annotations:
     kubernetes.io/ingress.class: haproxy
 spec:
-  # tls:
-  
-  #   secretName: adria-pg-db-pgbouncer
   rules:
   - http:
       paths:
@@ -16,16 +13,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: pgo-ha/adria-pg-db-pgbouncer 
+            name: adria-pg-db-pgbouncer  #  service name
             port:
               number: 5432
 
   tls: 
-    - secretName: pgo-ha/adria-pg-db-pgbouncer 
-      # - path: /grafana
-      #   pathType: Prefix
-      #   backend:
-      #     service:
-      #       name: crunchy-grafana   
-      #       port:
-      #         number: 3000
+    - secretName: adria-pg-db-pgbouncer  #  secret name
