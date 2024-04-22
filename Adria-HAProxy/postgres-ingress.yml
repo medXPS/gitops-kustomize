@@ -1,7 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pgo-ha
+  name: pgo-ingress
+  namespace: pgo-ha
   annotations:
     kubernetes.io/ingress.class: haproxy
 spec:
@@ -18,19 +19,6 @@ spec:
             name: adria-pg-db-pgbouncer 
             port:
               number: 5432
----
-#crunchy-grafana   
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: grafana-ha
-  annotations:
-    kubernetes.io/ingress.class: haproxy
-spec:
-
-  rules:
-  - http:
-      paths:
       - path: /grafana
         pathType: Prefix
         backend:
