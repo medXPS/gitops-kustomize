@@ -18,16 +18,52 @@ spec:
       # pull from bitnami   
         image: bitnami/pgpool
         env:
-        - name: POSTGRES_USERNAME
+        - name: PGPOOL_POSTGRES_USERNAME
           valueFrom:
             secretKeyRef:
               name: adria-pg-db-pguser-mohamed
               key: user
-        - name: POSTGRES_PASSWORD
+        - name: PGPOOL_POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: adria-pg-db-pguser-mohamed
               key: password
+        - name: PGPOOL_ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: user
+        - name:  PGPOOL_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: password
+    # -----------------------------
+
+        - name: PGPOOL_HEALTH_CHECK_USER
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: user
+        - name: PGPOOL_HEALTH_CHECK_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: password
+    # -----------------------------
+        - name: PGPOOL_SR_CHECK_USER
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: user
+        - name:  PGPOOL_SR_CHECK_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: password  
+          
+          
+           
         volumeMounts:
         - name: pgpool-config
           mountPath: /config
