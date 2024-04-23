@@ -18,7 +18,7 @@ spec:
         image: bitnami/pgpool
         env:
           - name: PGPOOL_BACKEND_NODES
-            value: "0:adria-pg-db-primary,1:adria-pg-db-replicas"
+            value: "0:adria-pg-db-primary:5432:1:primary,adria-pg-db-replicas:5432:1:standby"
           - name: PGPOOL_POSTGRES_USERNAME
             valueFrom:
               secretKeyRef:
