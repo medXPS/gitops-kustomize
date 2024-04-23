@@ -59,6 +59,8 @@ spec:
                 key: password
           - name: PGPOOL_BACKEND_NODES
             value: "adria-pg-db-primary,adria-pg-db-replicas"
+          - name: PGPOOL_BACKEND_NODE_HOSTS
+            value: "adria-pg-db-primary:5432,adria-pg-db-replicas:5432" # Provide the host:port for each backend node
         volumeMounts:
         - name: pgpool-config
           mountPath: /config
