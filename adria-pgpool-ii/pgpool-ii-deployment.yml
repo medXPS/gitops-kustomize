@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgpool
+  namespace: pgo-ha
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgpool
+  template:
+    metadata:
+      labels:
+        app: pgpool
+    spec:
+      containers:
+      - name: pgpool
+      # pull from bitnami   
+        image: bitnami/pgpool
+        env:
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: password
+        volumeMounts:
+        - name: pgpool-config
+          mountPath: /config
+      volumes:
+      - name: pgpool-config
+        configMap:
+          name: pgpool-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgpool
+  namespace: pgo-ha
+spec:
+  selector:
+    app: pgpool
+  ports:
+  - name: pgpool-port
+    protocol: TCP
+    port: 9999
+    targetPort: 9999
