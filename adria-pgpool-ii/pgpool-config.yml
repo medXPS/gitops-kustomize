@@ -34,10 +34,11 @@ data:
     ssl = on
     failover_on_backend_error = off
     # allow_clear_text_frontend_auth = on
+    authenticationMethod: md5
   pool_hba.conf: |-
     local   all         all                               trust
     host    all         all         127.0.0.1/32          trust
     host    all         all         ::1/128               trust
-    host    all         all         0.0.0.0/0             scram-sha-256
-    hostssl all         all         0.0.0.0/0             scram-sha-256
+    host    all         all         0.0.0.0/0             md5
+    hostssl all         all         0.0.0.0/0             md5
     
