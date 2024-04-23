@@ -18,7 +18,7 @@ spec:
         image: bitnami/pgpool
         env:
           - name: PGPOOL_BACKEND_NODES
-            value: "0:adria-pg-db-primary:5432:1:primary:DISALLOW_TO_FAILOVER:mohamed:mohamed123:postgres,1:adria-pg-db-replicas:5432:1:standby:ALLOW_TO_FAILOVER:mohamed:mohamed123:postgres"
+            value: "0:adria-pg-db-primary:5432:1:primary:DISALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb,1:adria-pg-db-replicas:5432:1:standby:ALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb"
           - name: PGPOOL_POSTGRES_USERNAME
             valueFrom:
               secretKeyRef:
