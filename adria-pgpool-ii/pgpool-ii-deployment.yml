@@ -57,10 +57,9 @@ spec:
               secretKeyRef:
                 name: adria-pg-db-pguser-mohamed
                 key: password
-          - name: PGPOOL_BACKEND_NODES
-            value: "adria-pg-db-primary,adria-pg-db-replicas"
-          - name: PGPOOL_BACKEND_NODE_HOSTS
-            value: "adria-pg-db-primary:5432,adria-pg-db-replicas:5432" # Provide the host:port for each backend node
+          # - name: PGPOOL_BACKEND_NODES
+          #   value: "adria-pg-db-primary,adria-pg-db-replicas"
+
         volumeMounts:
         - name: pgpool-config
           mountPath: /config
