@@ -17,6 +17,8 @@ spec:
       - name: pgpool
         image: bitnami/pgpool
         env:
+          - name: PGPOOL_BACKEND_NODES
+            value: "0:adria-pg-db-primary,1:adria-pg-db-replicas"
           - name: PGPOOL_POSTGRES_USERNAME
             valueFrom:
               secretKeyRef:
@@ -57,8 +59,7 @@ spec:
               secretKeyRef:
                 name: adria-pg-db-pguser-mohamed
                 key: password
-          - name: PGPOOL_BACKEND_NODES
-            value: "0:adria-pg-db-primary,1:adria-pg-db-replicas"
+         
 
         volumeMounts:
         - name: pgpool-config
