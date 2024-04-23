@@ -58,7 +58,7 @@ spec:
                 name: adria-pg-db-pguser-mohamed
                 key: password
           - name: PGPOOL_BACKEND_NODES
-            value: "0:adria-pg-db-primary:5432,1:adria-pg-db-replicas:5432"
+            value: "0:adria-pg-db-primary,1:adria-pg-db-replicas"
 
         volumeMounts:
         - name: pgpool-config
