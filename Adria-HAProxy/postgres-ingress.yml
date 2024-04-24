@@ -59,3 +59,5 @@ spec:
             name: adria-pg-db-pgbouncer
             port:
               number: 5432
+  tls:
+    - secretName: pgbouncer-tls-secret  # secret name
