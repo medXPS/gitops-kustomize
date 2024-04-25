@@ -16,7 +16,21 @@ spec:
       containers:
       - name: pgpool
         image: pgpool/pgpool
-        command: ["sh", "-c", "$PGPOOL_BINARY_DIR/pgpool -n -f $PGPOOLCONF -F $PCP_CONF -a $POOL_HBA_CONF"]
+        command: 
+          - "/bin/sh"
+          - "-c"
+          - "exec /usr/local/bin/pgpool -n -f /config/pgpool.conf -F /config/pcp.conf -a /config/pool_hba.conf"
+        envFrom:
+        - configMapRef:
+            name: pgpool-config
+        volumeMounts:
+        - name: pgpool-config
+          mountPath: /config
+      volumes:
+      - name: pgpool-config
+        configMap:
+          name: pgpool-config
+       
         env:
         # for pgpool/pgpool image   
           - name: POSTGRES_USERNAME
@@ -79,13 +93,7 @@ spec:
           #       key: password
          
 
-        volumeMounts:
-        - name: pgpool-config
-          mountPath: /config
-      volumes:
-      - name: pgpool-config
-        configMap:
-          name: pgpool-config
+  
 ---
 apiVersion: v1
 kind: Service
