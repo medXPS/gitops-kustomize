@@ -1,3 +1,113 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: pgpool
+#   namespace: pgo-ha
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: pgpool
+#   template:
+#     metadata:
+#       labels:
+#         app: pgpool
+#     spec:
+#       containers:
+#       - name: pgpool
+#         image: pgpool/pgpool
+#         command: 
+#           - "/bin/sh"
+#           - "-c"
+#           - "exec /usr/local/bin/pgpool -n -f /config/pgpool.conf -F /config/pcp.conf -a /config/pool_hba.conf"
+#         envFrom:
+#         - configMapRef:
+#             name: pgpool-config
+#         volumeMounts:
+#         - name: pgpool-config
+#           mountPath: /config
+#       volumes:
+#       - name: pgpool-config
+#         configMap:
+#           name: pgpool-config
+       
+#         env:
+#         # for pgpool/pgpool image   
+#           - name: POSTGRES_USERNAME
+#             valueFrom:
+#               secretKeyRef:
+#                 name: adria-pg-db-pguser-mohamed
+#                 key: user
+#           - name: POSTGRES_PASSWORD
+#             valueFrom:
+#               secretKeyRef:
+#                 name: adria-pg-db-pguser-mohamed
+#                 key: password
+#           - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
+#             value: "adria-pg-db-primary"
+#           - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
+#             value: "adria-pg-db-replicas"
+#         # ------------------------------for bitnami image 
+#           # # - name: PGPOOL_BACKEND_NODES
+#           # #   value: "0:adria-pg-db-primary.pg-ha.svc:5432:1:primary:DISALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb,1:adria-pg-db-replicas.pg-port.svc:5432:1:standby:ALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb"
+#           # - name: PGPOOL_POSTGRES_USERNAME
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: user
+#           # - name: PGPOOL_POSTGRES_PASSWORD
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: password
+          
+#           # - name: PGPOOL_ADMIN_USERNAME
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: user
+#           # - name: PGPOOL_ADMIN_PASSWORD
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: password
+#           # - name: PGPOOL_HEALTH_CHECK_USER
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: user
+#           # - name: PGPOOL_HEALTH_CHECK_PASSWORD
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: password
+#           # - name: PGPOOL_SR_CHECK_USER
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: user
+#           # - name: PGPOOL_SR_CHECK_PASSWORD
+#           #   valueFrom:
+#           #     secretKeyRef:
+#           #       name: adria-pg-db-pguser-mohamed
+#           #       key: password
+         
+
+  
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: pgpool
+#   namespace: pgo-ha
+# spec:
+#   selector:
+#     app: pgpool
+#   ports:
+#   - name: pgpool-port
+#     protocol: TCP
+#     port: 9999
+#     targetPort: 9999
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,85 +125,30 @@ spec:
     spec:
       containers:
       - name: pgpool
-        image: pgpool/pgpool
-        command: 
-          - "/bin/sh"
-          - "-c"
-          - "exec /usr/local/bin/pgpool -n -f /config/pgpool.conf -F /config/pcp.conf -a /config/pool_hba.conf"
-        envFrom:
-        - configMapRef:
-            name: pgpool-config
+        image: pgpool/pgpool:4.1
+        command: ["sh", "-c", "$PGPOOL_BINARY_DIR/pgpool -n -f $PGPOOLCONF -F $PCP_CONF -a $POOL_HBA_CONF"]
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: adria-pg-db-pguser-mohamed
+              key: POSTGRES_PASSWORD
+        - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
+          value: "adria-pg-db-primary"
+        - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
+          value: "adria-pg-db-replicas"
         volumeMounts:
         - name: pgpool-config
-          mountPath: /config
+          mountPath: /usr/local/pgpool-II/etc
       volumes:
       - name: pgpool-config
         configMap:
           name: pgpool-config
-       
-        env:
-        # for pgpool/pgpool image   
-          - name: POSTGRES_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: adria-pg-db-pguser-mohamed
-                key: user
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: adria-pg-db-pguser-mohamed
-                key: password
-          - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
-            value: "adria-pg-db-primary"
-          - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
-            value: "adria-pg-db-replicas"
-        # ------------------------------for bitnami image 
-          # # - name: PGPOOL_BACKEND_NODES
-          # #   value: "0:adria-pg-db-primary.pg-ha.svc:5432:1:primary:DISALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb,1:adria-pg-db-replicas.pg-port.svc:5432:1:standby:ALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb"
-          # - name: PGPOOL_POSTGRES_USERNAME
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: user
-          # - name: PGPOOL_POSTGRES_PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: password
-          
-          # - name: PGPOOL_ADMIN_USERNAME
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: user
-          # - name: PGPOOL_ADMIN_PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: password
-          # - name: PGPOOL_HEALTH_CHECK_USER
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: user
-          # - name: PGPOOL_HEALTH_CHECK_PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: password
-          # - name: PGPOOL_SR_CHECK_USER
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: user
-          # - name: PGPOOL_SR_CHECK_PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: adria-pg-db-pguser-mohamed
-          #       key: password
-         
-
-  
 ---
 apiVersion: v1
 kind: Service
