@@ -5,11 +5,13 @@ metadata:
   namespace: pgo-ha
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
   template:
     metadata:
       labels:
         app: hello-world
-        visualize: "true"
     spec:
       containers:
       - name: hello-world-pod
@@ -20,8 +22,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    visualize: "true"
   name: hello-world-service
   namespace: pgo-ha
 spec:
