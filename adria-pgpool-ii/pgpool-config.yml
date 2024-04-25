@@ -20,6 +20,8 @@ data:
     backend_port1 = 5432
     backend_weight1 = 1
     backend_flag1 = 'DISALLOW_TO_FAILOVER'
+    sr_check_user = 'mohamed'
+    sr_check_period = 10
     sr_check_period = 0
     enable_pool_hba = on
     backend_clustering_mode = 'streaming_replication'
@@ -34,6 +36,10 @@ data:
     ssl = on
     failover_on_backend_error = off
     # allow_clear_text_frontend_auth = on
+  pcp.conf: |-
+    mohamed:md5df338d5e2548afdc0fa6c704bfa9ae5b
+  pool_passwd: |-
+    mohamed:md5df338d5e2548afdc0fa6c704bfa9ae5b
     
   pool_hba.conf: |-
     local   all         all                               trust
