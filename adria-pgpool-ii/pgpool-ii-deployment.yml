@@ -43,10 +43,10 @@ spec:
               secretKeyRef:
                 name: adria-pg-db-pguser-mohamed
                 key: password
-          - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
-            value: "adria-pg-db-primary"
-          - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
-            value: "adria-pg-db-replicas"
+          # - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
+          #   value: "adria-pg-db-primary"
+          # - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
+          #   value: "adria-pg-db-replicas"
         # ------------------------------for bitnami image 
           # # - name: PGPOOL_BACKEND_NODES
           # #   value: "0:adria-pg-db-primary.pg-ha.svc:5432:1:primary:DISALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb,1:adria-pg-db-replicas.pg-port.svc:5432:1:standby:ALLOW_TO_FAILOVER:mohamed:mohamed123:adriadb"
