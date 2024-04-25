@@ -132,12 +132,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: adria-pg-db-pguser-mohamed
-              key: POSTGRES_USER
+              key: user
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: adria-pg-db-pguser-mohamed
-              key: POSTGRES_PASSWORD
+              key: password
         - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
           value: "adria-pg-db-primary"
         - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
