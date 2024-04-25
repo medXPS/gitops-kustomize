@@ -12,7 +12,7 @@ data:
     pcp_listen_addresses = '*'
     pcp_port = 9898
     pcp_socket_dir = '/var/run/pgpool'
-    backend_hostname0 = 'pod/adria-pg-db-adria-postgres-db-4mxd-0'
+    backend_hostname0 = 'adria-pg-db-primary'
     backend_port0 = 5432
     backend_weight0 = 1
     backend_flag0 = 'ALWAYS_PRIMARY|DISALLOW_TO_FAILOVER'
