@@ -59,5 +59,12 @@ spec:
             name: adria-pg-db-pgbouncer
             port:
               number: 5432
+      - pathType: Prefix
+        path: "/hello"
+        backend:
+          service:
+            name: hello-world-service
+            port:
+              number: 8080
   tls:
     - secretName: pgbouncer-tls-secret  # secret name
