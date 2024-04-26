@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pgpool-config
-  namespace: pg-ha
+  namespace: pgo-ha
   labels:
     name: pgpool-config
 data:
