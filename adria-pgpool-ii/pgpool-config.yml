@@ -22,12 +22,15 @@ data:
     backend_weight1 = 1
     backend_flag1 = 'DISALLOW_TO_FAILOVER'
     sr_check_user = 'mohamed'
+    sr_check_password = 'ZzUklqhC|}xQ[u:f?F8=l^z0'
     sr_check_period = 10
-
+    sr_check_period = 0
     enable_pool_hba = on
     backend_clustering_mode = 'streaming_replication'
     num_init_children = 32
     max_pool = 4
+    
+    
     child_life_time = 300
     child_max_connections = 0
     connection_life_time = 0
