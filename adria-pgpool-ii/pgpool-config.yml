@@ -6,8 +6,8 @@ metadata:
   labels:
     name: pgpool-config
 data:
-  pool_passwd: |- 
-    mohamed:md5df338d5e2548afdc0fa6c704bfa9ae5b
+  # pool_passwd: |- 
+  #   mohamed:md5df338d5e2548afdc0fa6c704bfa9ae5b
   pgpool.conf: |-
     listen_addresses = '*'
     port = 9999
@@ -23,8 +23,6 @@ data:
     backend_port1 = 5432
     backend_weight1 = 1
     backend_flag1 = 'DISALLOW_TO_FAILOVER'
-    sr_check_user = 'mohamed'
-    sr_check_password = 'ZzUklqhC|}xQ[u:f?F8=l^z0'
     sr_check_period = 10
     sr_check_period = 0
     enable_pool_hba = on
