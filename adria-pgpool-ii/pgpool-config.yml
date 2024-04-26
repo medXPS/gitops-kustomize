@@ -6,6 +6,8 @@ metadata:
   labels:
     name: pgpool-config
 data:
+  pool_passwd: |- 
+    mohamed:md5df338d5e2548afdc0fa6c704bfa9ae5b
   pgpool.conf: |-
     listen_addresses = '*'
     port = 9999
@@ -29,8 +31,6 @@ data:
     backend_clustering_mode = 'streaming_replication'
     num_init_children = 32
     max_pool = 4
-    
-    
     child_life_time = 300
     child_max_connections = 0
     connection_life_time = 0
@@ -41,16 +41,9 @@ data:
     failover_on_backend_error = off
     # allow_clear_text_frontend_auth = on
 
-
- 
-
- 
-    
   pool_hba.conf: |-
     local   all         all                               trust
     host    all         all         127.0.0.1/32          trust
     host    all         all         ::1/128               trust
     hostssl all         all         0.0.0.0/0             md5
-#md5 switch test
-  pool_passwd: |- 
-    mohamed:md5df338d5e2548afdc0fa6c704bfa9ae5b
+
