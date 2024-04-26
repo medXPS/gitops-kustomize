@@ -23,10 +23,10 @@ spec:
         - name: pgpool-config
           mountPath: /usr/local/pgpool-II/etc
         env:
-        - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
-          value: "adria-pg-db-primary"
-        - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
-          value: "adria-pg-db-replicas"
+        # - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
+        #   value: "adria-pg-db-primary"
+        # - name: PGPOOL_PARAMS_BACKEND_HOSTNAME1
+        #   value: "adria-pg-db-replicas"
         - name: POSTGRES_USERNAME
           valueFrom:
             secretKeyRef:
