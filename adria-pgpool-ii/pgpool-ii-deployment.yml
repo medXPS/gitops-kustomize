@@ -21,7 +21,7 @@ spec:
             name: pgpool-config
         volumeMounts:
         - name: pgpool-config
-          mountPath: /usr/local/pgpool-II/etc
+          mountPath: /config
         env:
         # - name: PGPOOL_PARAMS_BACKEND_HOSTNAME0
         #   value: "adria-pg-db-primary"
