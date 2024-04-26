@@ -37,6 +37,10 @@ data:
     ssl = on
     failover_on_backend_error = off
     # allow_clear_text_frontend_auth = on
+
+
+ 
+
  
     
   pool_hba.conf: |-
@@ -45,3 +49,5 @@ data:
     host    all         all         ::1/128               trust
     hostssl all         all         0.0.0.0/0             md5
 #md5 switch test
+  pool_passwd: |- 
+    mohamed:md5df338d5e2548afdc0fa6c704bfa9ae5b
