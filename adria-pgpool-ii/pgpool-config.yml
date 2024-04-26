@@ -36,15 +36,11 @@ data:
     ssl = on
     failover_on_backend_error = off
     # allow_clear_text_frontend_auth = on
-  pcp.conf: |-
-    mohamed:scram-sha-256:4d61051dcc8b3d65a3cb29a69d7372321625f61785cee7ef1d208cceb3a4cd80
-  pool_passwd: |-
-    mohamed:scram-sha-256:4d61051dcc8b3d65a3cb29a69d7372321625f61785cee7ef1d208cceb3a4cd80
+ 
     
   pool_hba.conf: |-
     local   all         all                               trust
     host    all         all         127.0.0.1/32          trust
     host    all         all         ::1/128               trust
-    host    all         all         0.0.0.0/0             scram-sha-256
-    hostssl all         all         0.0.0.0/0             scram-sha-256
+    hostssl all         all         0.0.0.0/0             md5
 #md5 switch test
