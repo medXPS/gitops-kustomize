@@ -152,7 +152,7 @@ config:
     pool_mode: session
     default_pool_size: 40
   userlist:
-    adria-dba: /_H|vSh6XEF^QwS=*qbqKYBg
+    dev-cih: m.JHZbW1URD/xD.1p)|v0=p,
 
 ## Additional containers to be added to the pods
 ##
