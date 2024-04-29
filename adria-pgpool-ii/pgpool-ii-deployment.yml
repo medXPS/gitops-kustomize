@@ -97,11 +97,11 @@ spec:
         - name: PGPOOL_PARAMS_SSL
           value: "on"
         - name: POSTGRES_USERNAME
-          value: "mohamed"
+          value: "adria-dba"
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: adria-pg-db-pguser-mohamed
+              name: adria-pg-db-pguser-adria-dba
               key: password
         - name: PGPOOL_PASSWORD_ENCRYPTION_METHOD
           value: "scram-sha-256"
