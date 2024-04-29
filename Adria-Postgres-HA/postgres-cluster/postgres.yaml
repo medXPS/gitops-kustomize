@@ -66,30 +66,22 @@ spec:
       exporter:
         image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.5.1-0
   users:
-    - name: mohamed
+    - name: adria-dba
       databases:
-        - adriadb
-        - alphadb
+        - cih
+        - cdm 
+        - sgabs
+        - attijari
+        - bcp 
       options: 'SUPERUSER'
-    - name: oussama
+    - name: dev-cih
       databases:
-        - adriadb
-      options: 'NOSUPERUSER'
-    - name: adria
+        - cih
+      options: 'SUPERUSER'
+    - name: dev-cih-ro 
       databases:
-        - adriadb
-      options: 'NOSUPERUSER'
-    - name: test
-      databases:
-        - adriadb
-      options: 'NOSUPERUSER'
-    - name: soulaimane
-      databases:
-        - adriadb
-        - alphadb
-      options: 'NOSUPERUSER'
-  
-      
+        - cih
+      options: 'NOSUPERUSER'      
   #enabling synchronous communication between replicas 
   patroni:
   #It allows you to enable switchovers in your PostgresClusters, target a specific instance as the new primary, and run a failover if your PostgresCluster has entered a bad state.
