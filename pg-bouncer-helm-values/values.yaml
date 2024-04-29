@@ -144,7 +144,7 @@ config:
   authUser:
   authPassword:
   databases:
-    adriadb:
+    cih:
       host: pgpool.pgo-ha.svc.cluster.local
       port: 9999
   pgbouncer:

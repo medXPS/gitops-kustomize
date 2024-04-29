@@ -101,7 +101,7 @@ spec:
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: adria-pg-db-pguser-adria-dba
+              name: adria-pg-db-pguser-dev-cih
               key: password
         - name: PGPOOL_PASSWORD_ENCRYPTION_METHOD
           value: "scram-sha-256"
